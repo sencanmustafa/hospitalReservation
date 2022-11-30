@@ -1,11 +1,13 @@
 import Business.Concrete.DoctorService;
 import Business.Concrete.UserService;
 import DataAccess.RepositoryBase;
-import Entities.Concrete.Admin;
 import Entities.Concrete.Doctor;
 import Entities.Concrete.Randevu;
 import Entities.Concrete.User;
 
+import javax.print.Doc;
+import java.io.BufferedReader;
+import java.io.StringReader;
 import java.util.Scanner;
 
 
@@ -16,77 +18,168 @@ public class Main {
         UserService userManager = new UserService();
         DoctorService doctorManager = new DoctorService();
         RepositoryBase repositoryBase = new RepositoryBase();
-        System.out.println("*************************************");
-        System.out.println("1 -> Kullanici 2 -> Doktor ");
-        int secim = scanner.nextInt();
-        switch (secim)
+        int randevuId = 1;
+        int doctorId = 1;
+        int userId = 1;
+
+        while (true)
         {
-            case 1:
+            System.out.println("*************************************");
+            System.out.println("1 -> Kullanici 2 -> Doktor 3 -> DATA GOR ");
+            int secim = scanner.nextInt();
+            if (secim==1)
+            {
                 System.out.println("1 -> Giris yap 2 -> Kayit Ol 3 -> Sifremi Unuttum  4 -> Cikis Yap ");
                 int secim2 = scanner.nextInt();
-                switch (secim2)
+                if (secim2 == 1)
                 {
-                    case 1:
-                        System.out.println("TCNO ve Parola giriniz");
-                        String tcNo = scanner.nextLine();
-                        String password = scanner.nextLine();
-                        if (userManager.userAuth(tcNo,password,repositoryBase)!=null)
+                    scanner.nextLine();
+                    System.out.println("TCNO ve Parola giriniz");
+                    String tcNo = scanner.nextLine();
+                    String authPassword = scanner.nextLine();
+                    if (userManager.userAuth(tcNo, authPassword, repositoryBase) != null)
+                    {
+                        User authUser = userManager.userAuth(tcNo, authPassword, repositoryBase);
+                        System.out.println("HOSGELDINIZ SAYIN " + authUser.firstName + " " + authUser.lastName);
+                    }
+                    else
+                    {
+                        System.out.println("HATALI GIRIS");
+
+                    }
+                }
+                else if (secim2==2)
+                {
+                    scanner.nextLine();
+                    System.out.println("ISIM");
+                    String registerFirstName = scanner.nextLine();
+                    System.out.println(" SOYISIM");
+                    String registerLastName = scanner.nextLine();
+                    System.out.println("TCNO ");
+                    String registerTcNo = scanner.nextLine();
+                    System.out.println("SIFRE GIRINIZ");
+                    String registerPassword = scanner.nextLine();
+                    User registerUser = new User(userId,registerFirstName, registerLastName, registerTcNo, registerPassword);
+                    repositoryBase.userListesi.add(registerUser);
+                    userId+=1;
+                }
+                else if (secim2==4)
+                {
+                    System.out.println("Cikis yapiliyor");
+                    break;
+                }
+                else
+                {
+                    System.out.println("HATALI SECIM YAPTINIZ");
+                }
+
+            }
+            else if (secim==2)
+            {
+                System.out.println("1 -> Giris yap 2 -> Kayit Ol 3 -> Sifremi Unuttum  4 -> Cikis Yap ");
+                int secim3 = scanner.nextInt();
+                if (secim3 == 1)
+                {
+                    scanner.nextLine();
+                    System.out.println("TCNO ve Parola giriniz");
+                    String tcNo = scanner.nextLine();
+                    String authPassword = scanner.nextLine();
+                    if (userManager.userAuth(tcNo, authPassword, repositoryBase) != null)
+                    {
+                        Doctor authDoctor = doctorManager.doctorAuth(tcNo, authPassword, repositoryBase);
+                        System.out.println("HOSGELDINIZ SAYIN  " + authDoctor.firstName + " " + authDoctor.lastName + "NE YAPMAK ISTERSINIZ ? ");
+                        System.out.println("1 -> RANDEVU AC 2 -> RANDEVULARIMI GOR 3 -> CIKIS");
+                        int secim4 = scanner.nextInt();
+                        if (secim4==1)
                         {
-                            User authUser = userManager.userAuth(tcNo,password,repositoryBase);
-                            System.out.println("HOSGELDINIZ SAYIN " + authUser.firstName + " " + authUser.lastName);
+                            scanner.nextLine();
+                            System.out.println("Randevu Tarihini giriniz GUN/AY/YIL");
+                            String newRandevuDate = scanner.nextLine();
+                            System.out.println("RANDEVU SAATINI GIRINIZ");
+                            String newRandevuTime = scanner.nextLine();
+
+                            Randevu newRandevu = new Randevu(randevuId,authDoctor.doctorId,authDoctor.firstName,authDoctor.doctorSkill,newRandevuDate, newRandevuTime);
+                            repositoryBase.doctorRandevuListesi.add(newRandevu);
+                            randevuId+=1;
+                            System.out.println("RANDEVU BASARIYLA ACILDI");
+                            break;
+
                         }
-                        else
+                        else if (secim4==2)
                         {
-                            System.out.println("HATALI GIRIS");
+                            for (Randevu r :repositoryBase.doctorRandevuListesi)
+                            {
+                                if (r.doctorId == authDoctor.doctorId)
+                                {
+                                    System.out.println(r);
+                                }
+                            }
+                        }
+                        else if (secim4==3)
+                        {
+                            System.out.println("cikis yapiliyor");
                             break;
                         }
-                        break;
-                    case 2:
-                        scanner.nextLine();
-                        System.out.println("ISIM , SOYISIM , TCNO , SIFRE GIRINIZ");
-                        String registerFirstName = scanner.nextLine();
-                        System.out.println("ISIM , SOYISIM , TCNO , SIFRE GIRINIZ");
-                        String registerLastName = scanner.nextLine();
-                        System.out.println("ISIM , SOYISIM , TCNO , SIFRE GIRINIZ");
-                        String registerTcNo = scanner.nextLine();
-                        System.out.println("ISIM , SOYISIM , TCNO , SIFRE GIRINIZ");
-                        String registerPassword = scanner.nextLine();
-                        User registerUser = new User(registerFirstName,registerLastName,registerTcNo,registerPassword);
-                        repositoryBase.userListesi.add(registerUser);
-                        break;
-                    case 3:
-                        break;
-                    case 4:
-                        break;
-                    default:
-                        break;
+
+                    }
+                    else
+                    {
+                        System.out.println("HATALI GIRIS");
+
+                    }
                 }
-                break;
-            case 2:
-                int secim3 = scanner.nextInt();
-                System.out.println("1 -> Giris yap 2 -> Kayit Ol 3 -> Sifremi Unuttum  4 -> Cikis Yap ");
-                switch (secim3)
+                else if (secim3==2)
                 {
-                    case 1:
-                        System.out.println("TCNO ve Parola giriniz");
-                        String kAdi = scanner.nextLine();
-                        String password = scanner.nextLine();
-
-                        break;
-                    case 2:
-                        break;
-                    case 3:
-                        break;
-                    case 4:
-                        break;
-                    default:
-                        break;
+                    scanner.nextLine();
+                    System.out.println("ISIM");
+                    String registerFirstName = scanner.nextLine();
+                    System.out.println("SOYISIM");
+                    String registerLastName = scanner.nextLine();
+                    System.out.println("TCNO");
+                    String registerTcNo = scanner.nextLine();
+                    System.out.println("SIFRE GIRINIZ");
+                    String registerPassword = scanner.nextLine();
+                    System.out.println("BRANS GIRINIZ");
+                    String registerBrans = scanner.nextLine();
+                    Doctor registerDoctor = new Doctor(doctorId,registerFirstName, registerLastName,registerBrans,registerTcNo, registerPassword);
+                    repositoryBase.doctorListesi.add(registerDoctor);
                 }
-                break;
+                else if (secim3==4)
+                {
+                    System.out.println("Cikis yapiliyor");
+                    break;
+                }
+                else
+                {
+                    System.out.println("HATALI SECIM YAPTINIZ");
+                }
+            }
 
+            else if (secim==3)
+            {
+                System.out.println("DOKTOR LISTESI");
+                for (int i = 0; i < repositoryBase.doctorListesi.size(); i++)
+                {
+                    System.out.println(repositoryBase.doctorListesi.get(i).doctorId+" "+repositoryBase.doctorListesi.get(i).firstName + " " +repositoryBase.doctorListesi.get(i).tcNo);
+                }
+                System.out.println("USER LISTESI");
+                for (int i = 0; i < repositoryBase.userListesi.size(); i++)
+                {
+                    System.out.println(repositoryBase.userListesi.get(i).userId+" "+repositoryBase.userListesi.get(i).firstName + " " +repositoryBase.userListesi.get(i).tcNo);
+                }
+                System.out.println("DOKTOR RANDEVU LISTESI");
+                for (int i = 0; i < repositoryBase.doctorRandevuListesi.size(); i++)
+                {
+                    System.out.println(repositoryBase.doctorRandevuListesi.get(i).randevuId + " " +repositoryBase.doctorRandevuListesi.get(i).doctorId);
+                }
+            }
         }
 
-
-
     }
+
+
+
+
+
+
 }

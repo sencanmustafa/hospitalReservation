@@ -55,14 +55,7 @@ public class UserService implements IUserService {
                 {
                     return repositoryBase.userListesi.get(i);
                 }
-                else
-                {
-                    return null;
-                }
-            }
-            else
-            {
-                return null;
+
             }
         }
         return null;
