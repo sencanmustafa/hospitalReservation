@@ -5,9 +5,7 @@ import Entities.Concrete.Doctor;
 import Entities.Concrete.Randevu;
 import Entities.Concrete.User;
 
-import javax.print.Doc;
-import java.io.BufferedReader;
-import java.io.StringReader;
+
 import java.util.Scanner;
 
 
@@ -40,7 +38,36 @@ public class Main {
                     if (userManager.userAuth(tcNo, authPassword, repositoryBase) != null)
                     {
                         User authUser = userManager.userAuth(tcNo, authPassword, repositoryBase);
-                        System.out.println("HOSGELDINIZ SAYIN " + authUser.firstName + " " + authUser.lastName);
+                        System.out.println("HOSGELDINIZ SAYIN " + authUser.firstName + " " + authUser.lastName +  " NE YAPMAK ISTERSINIZ ? " );
+                        System.out.println("1 -> RANDEVU AL 2 -> RANDEVULARIMI GOR 3 -> CIKIS");
+                        int secim4 = scanner.nextInt();
+                        if (secim4==1)
+                        {
+
+                            System.out.println("HANGI RANDEVUYU ALMAK ISTIYORSUNUZ EGER RANDEVU YOK ISE RANDEVU ALAMAZSINIZ");
+                            for (Randevu randevu :repositoryBase.randevularListesi)
+                            {
+                                System.out.println("RANDEVU NO - > " + " " + randevu.randevuId);
+                                System.out.println("DOKTOR ADI " + " " + randevu.doctorName);
+                                System.out.println("DOKTOR BRANSI" + " " + randevu.doctorSkill);
+                                System.out.println("RANDEVU  TARIH VE SAATI " + " "+ randevu.dateDay + " " + randevu.dateTime);
+                            }
+                            int randevuSecim = scanner.nextInt();
+                            Randevu selectedRandevu = repositoryBase.randevularListesi.get(randevuSecim);
+                            selectedRandevu.userId = authUser.userId;
+                            userManager.randevuAl(repositoryBase.userRandevuListesi,selectedRandevu);
+
+                        } else if (secim4==2)
+                        {
+                            return;
+                        } else if (secim4==3)
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            break;
+                        }
                     }
                     else
                     {
@@ -66,7 +93,7 @@ public class Main {
                 else if (secim2==4)
                 {
                     System.out.println("Cikis yapiliyor");
-                    break;
+
                 }
                 else
                 {
@@ -84,10 +111,10 @@ public class Main {
                     System.out.println("TCNO ve Parola giriniz");
                     String tcNo = scanner.nextLine();
                     String authPassword = scanner.nextLine();
-                    if (userManager.userAuth(tcNo, authPassword, repositoryBase) != null)
+                    if (doctorManager.doctorAuth(tcNo, authPassword, repositoryBase) != null)
                     {
                         Doctor authDoctor = doctorManager.doctorAuth(tcNo, authPassword, repositoryBase);
-                        System.out.println("HOSGELDINIZ SAYIN  " + authDoctor.firstName + " " + authDoctor.lastName + "NE YAPMAK ISTERSINIZ ? ");
+                        System.out.println("HOSGELDINIZ SAYIN  " + authDoctor.firstName + " " + authDoctor.lastName + " NE YAPMAK ISTERSINIZ ? ");
                         System.out.println("1 -> RANDEVU AC 2 -> RANDEVULARIMI GOR 3 -> CIKIS");
                         int secim4 = scanner.nextInt();
                         if (secim4==1)
@@ -100,9 +127,10 @@ public class Main {
 
                             Randevu newRandevu = new Randevu(randevuId,authDoctor.doctorId,authDoctor.firstName,authDoctor.doctorSkill,newRandevuDate, newRandevuTime);
                             repositoryBase.doctorRandevuListesi.add(newRandevu);
-                            randevuId+=1;
+                            repositoryBase.randevularListesi.add(newRandevu);
+                            randevuId++;
                             System.out.println("RANDEVU BASARIYLA ACILDI");
-                            break;
+
 
                         }
                         else if (secim4==2)
@@ -111,14 +139,18 @@ public class Main {
                             {
                                 if (r.doctorId == authDoctor.doctorId)
                                 {
-                                    System.out.println(r);
+                                    System.out.println(r.randevuId);
+                                    System.out.println(r.doctorId);
+                                    System.out.println(r.dateDay);
+                                    System.out.println(r.dateTime);
+                                    System.out.println(r.doctorSkill);
                                 }
                             }
                         }
                         else if (secim4==3)
                         {
                             System.out.println("cikis yapiliyor");
-                            break;
+
                         }
 
                     }
@@ -143,15 +175,17 @@ public class Main {
                     String registerBrans = scanner.nextLine();
                     Doctor registerDoctor = new Doctor(doctorId,registerFirstName, registerLastName,registerBrans,registerTcNo, registerPassword);
                     repositoryBase.doctorListesi.add(registerDoctor);
+
                 }
                 else if (secim3==4)
                 {
                     System.out.println("Cikis yapiliyor");
-                    break;
+
                 }
                 else
                 {
                     System.out.println("HATALI SECIM YAPTINIZ");
+
                 }
             }
 
