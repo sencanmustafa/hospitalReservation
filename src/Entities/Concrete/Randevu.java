@@ -9,6 +9,7 @@ public class Randevu
     public String doctorSkill;
     public String dateDay;
     public String dateTime;
+    public boolean selected;
 
     public Randevu(int randevuId,int doctorId,String doctorName,String doctorSkill,String dateDay,String dateTime)
     {
@@ -18,8 +19,9 @@ public class Randevu
         this.randevuId=randevuId;
         this.dateDay=dateDay;
         this.dateTime=dateTime;
+        this.selected = false;
     }
-    public Randevu(int userId,int randevuId,int doctorId,String doctorName,String doctorSkill,String dateDay,String dateTime)
+    public Randevu(int userId,int randevuId,int doctorId,String doctorName,String doctorSkill,String dateDay,String dateTime,boolean selected)
     {
         this.userId=userId;
         this.doctorId=doctorId;
@@ -28,6 +30,7 @@ public class Randevu
         this.randevuId=randevuId;
         this.dateDay=dateDay;
         this.dateTime=dateTime;
+        this.selected = selected;
     }
 
 }
