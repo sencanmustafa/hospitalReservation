@@ -108,8 +108,9 @@ public class Main {
                 if (secim3 == 1)
                 {
                     scanner.nextLine();
-                    System.out.println("TCNO ve Parola giriniz");
+                    System.out.println("TCNO giriniz");
                     String tcNo = scanner.nextLine();
+                    System.out.println("Password giriniz");
                     String authPassword = scanner.nextLine();
                     if (doctorManager.doctorAuth(tcNo, authPassword, repositoryBase) != null)
                     {
