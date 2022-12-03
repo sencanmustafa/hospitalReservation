@@ -12,6 +12,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args)
     {
+        /*
         Scanner scanner = new Scanner(System.in);
         UserService userManager = new UserService();
         DoctorService doctorManager = new DoctorService();
@@ -241,7 +242,10 @@ public class Main {
 
 
 
-
-
+*/
+        RepositoryBase repositoryBase = new RepositoryBase();
+        LoginPage loginPage = new LoginPage(repositoryBase);
+        loginPage.setVisible(true);
+    }
 
 }

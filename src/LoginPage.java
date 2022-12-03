@@ -1,12 +1,11 @@
 import Business.Concrete.UserService;
 import DataAccess.RepositoryBase;
+import Entities.Concrete.User;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.logging.Logger;
-
-public class LoginPage
+public class LoginPage extends JFrame
 {
     UserService userManager = new UserService();
     RepositoryBase repositoryBase = new RepositoryBase();
@@ -14,9 +13,18 @@ public class LoginPage
     private JButton kayitOlButton;
     private JTextField usernameTextField;
     private JPasswordField passwordTextField;
+    private JPanel panel;
 
-    public LoginPage()
+    public LoginPage(RepositoryBase repositoryBase)
     {
+        add(panel);
+        setSize(400,400);
+        setTitle("Giris Ekrani");
+        for (User user : repositoryBase.userListesi)
+        {
+            System.out.println("Login Page");
+            System.out.println(user.firstName);
+        }
         girisYapButton.addActionListener(new ActionListener()
         {
             @Override
@@ -33,7 +41,8 @@ public class LoginPage
             @Override
             public void actionPerformed(ActionEvent e)
             {
-
+                SignUpPage signUpPage = new SignUpPage(repositoryBase);
+                signUpPage.setVisible(true);
             }
         });
     }
