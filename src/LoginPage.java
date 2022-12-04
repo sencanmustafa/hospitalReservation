@@ -32,7 +32,12 @@ public class LoginPage extends JFrame
             {
                 String tcNo = usernameTextField.getText();
                 String password = new String(passwordTextField.getPassword());
-                userManager.userAuth(tcNo,password,repositoryBase);
+                if (userManager.userAuth(tcNo,password,repositoryBase)!=null)
+                {
+                    User authUser = userManager.userAuth(tcNo,password,repositoryBase);
+                    UserCancelScreen userCancelScreen = new UserCancelScreen(authUser,repositoryBase);
+                    userCancelScreen.setVisible(true);
+                }
             }
         });
 
@@ -45,5 +50,6 @@ public class LoginPage extends JFrame
                 signUpPage.setVisible(true);
             }
         });
+
     }
 }

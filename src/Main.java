@@ -1,8 +1,5 @@
-import Business.Concrete.DoctorService;
-import Business.Concrete.UserService;
 import DataAccess.RepositoryBase;
 import Entities.Concrete.Doctor;
-import Entities.Concrete.Randevu;
 import Entities.Concrete.User;
 
 
@@ -243,9 +240,15 @@ public class Main {
 
 
 */
+
         RepositoryBase repositoryBase = new RepositoryBase();
+        User firstUser = new User(0,"Mustafa","Sencan","1","1");
+        Doctor firstDoctor = new Doctor(0,"Serra","Aydin","Genel Cerrahi","2","2");
+        repositoryBase.userListesi.add(firstUser);
+        repositoryBase.doctorListesi.add(firstDoctor);
         LoginPage loginPage = new LoginPage(repositoryBase);
         loginPage.setVisible(true);
+       
     }
 
 }
