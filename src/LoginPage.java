@@ -38,6 +38,7 @@ public class LoginPage extends JFrame
                 {
                     User authUser = userManager.userAuth(tcNo, password, repositoryBase);
                     new UserCancelScreen(repositoryBase,authUser);
+
                 };
 
             };

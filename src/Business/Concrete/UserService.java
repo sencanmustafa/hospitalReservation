@@ -11,9 +11,18 @@ import java.util.Objects;
 
 public class UserService implements IUserService {
     @Override
-    public ArrayList<Randevu> randevulariGor(ArrayList<Randevu> randevuList)
+    public ArrayList<Randevu> randevulariGor(RepositoryBase repositoryBase,User authUser)
     {
-        return randevuList;
+        ArrayList<Randevu> userRandevuList = new ArrayList<>();
+        for (int i = 0; i < repositoryBase.userRandevuListesi.size(); i++)
+        {
+            if (repositoryBase.userRandevuListesi.get(i).userId == authUser.userId)
+            {
+                userRandevuList.add(repositoryBase.userRandevuListesi.get(i));
+            }
+
+        }
+        return userRandevuList;
     }
 
     @Override

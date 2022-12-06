@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public interface IUserService
 {
-    public ArrayList<Randevu> randevulariGor(ArrayList<Randevu> randevuList);
+    public ArrayList<Randevu> randevulariGor(RepositoryBase repositoryBase,User authUser);
     public void randevuAl(ArrayList<Randevu> randevuList,Randevu randevu);
     public void randevuSil(Randevu randevu,ArrayList<Randevu> randevuList);
     public void randevuGor(int randevuId,ArrayList<Randevu> randevuList);
