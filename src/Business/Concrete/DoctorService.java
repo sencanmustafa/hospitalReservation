@@ -19,7 +19,8 @@ public class DoctorService implements IDoctorService {
     }
 
     @Override
-    public ArrayList randevulariGor(ArrayList randevuList) {
+    public ArrayList randevulariGor(ArrayList randevuList)
+    {
         return randevuList;
     }
 
@@ -38,5 +39,11 @@ public class DoctorService implements IDoctorService {
             }
         }
         return null;
+    }
+
+    @Override
+    public void randevuSil(int randevuId, ArrayList randevuList)
+    {
+        randevuList.remove(randevuId);
     }
 }

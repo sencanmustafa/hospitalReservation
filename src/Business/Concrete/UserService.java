@@ -60,4 +60,11 @@ public class UserService implements IUserService {
         }
         return null;
     }
+
+    @Override
+    public void randevuSil(int randevuId, ArrayList<Randevu> randevuList)
+    {
+        
+        randevuList.remove(randevuId);
+    }
 }

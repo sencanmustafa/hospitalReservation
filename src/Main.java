@@ -39,7 +39,7 @@ public class Main {
                         while (true)
                         {
                             System.out.println("HOSGELDINIZ SAYIN " + authUser.firstName + " " + authUser.lastName +  " NE YAPMAK ISTERSINIZ ? " );
-                            System.out.println("1 -> RANDEVU AL 2 -> RANDEVULARIMI GOR 3 -> CIKIS");
+                            System.out.println("1 -> RANDEVU AL 2 -> RANDEVULARIMI GOR 3 -> RANDEVU SIL 4-> CIKIS");
                             int secim4 = scanner.nextInt();
                             if (secim4==1)
                             {
@@ -73,8 +73,26 @@ public class Main {
                                         System.out.println(r.dateTime);
                                     }
                                 }
-                            }
-                            else if (secim4==3)
+                            } else if (secim4==3)
+                            {
+                                System.out.println("HANGI RANDEVUNUZU IPTAL ETMEK ISTIYORSUNUZ");
+                                for (Randevu r :repositoryBase.doctorRandevuListesi)
+                                {
+                                    if (r.userId == authUser.userId)
+                                    {
+                                        System.out.println(r.randevuId);
+                                        System.out.println(r.doctorId);
+                                        System.out.println(r.dateDay);
+                                        System.out.println(r.dateTime);
+                                        System.out.println(r.doctorSkill);
+                                    }
+                                }
+                                int canceledRandevu = scanner.nextInt();
+                                userManager.randevuSil(canceledRandevu-1,repositoryBase.userRandevuListesi);
+                                repositoryBase.randevularListesi.remove(canceledRandevu-1);
+                                System.out.println("RANDEVU BASARIYLA SILINDI");
+
+                            } else if (secim4==4)
                             {
                                 break;
                             }
@@ -88,7 +106,6 @@ public class Main {
                     else
                     {
                         System.out.println("HATALI GIRIS");
-
                     }
                 }
                 else if (secim2==2)
@@ -134,7 +151,7 @@ public class Main {
                         while (true)
                         {
                             System.out.println("HOSGELDINIZ SAYIN  " + authDoctor.firstName + " " + authDoctor.lastName + " NE YAPMAK ISTERSINIZ ? ");
-                            System.out.println("1 -> RANDEVU AC 2 -> RANDEVULARIMI GOR 3 -> CIKIS");
+                            System.out.println("1 -> RANDEVU AC 2 -> RANDEVULARIMI GOR  3 -> RANDEVU IPTAL ET  4 -> CIKIS");
                             int secim4 = scanner.nextInt();
                             if (secim4==1)
                             {
@@ -149,8 +166,6 @@ public class Main {
                                 repositoryBase.randevularListesi.add(newRandevu);
                                 randevuId++;
                                 System.out.println("RANDEVU BASARIYLA ACILDI");
-
-
                             }
                             else if (secim4==2)
                             {
@@ -168,16 +183,32 @@ public class Main {
                             }
                             else if (secim4==3)
                             {
+                                System.out.println("HANGI RANDEVUYU IPTAL ETMEK ISTIYORSUNUZ");
+                                for (Randevu r :repositoryBase.doctorRandevuListesi)
+                                {
+                                    if (r.doctorId == authDoctor.doctorId)
+                                    {
+                                        System.out.println(r.randevuId);
+                                        System.out.println(r.doctorId);
+                                        System.out.println(r.dateDay);
+                                        System.out.println(r.dateTime);
+                                        System.out.println(r.doctorSkill);
+                                    }
+                                }
+                                int canceledRandevu = scanner.nextInt();
+                                repositoryBase.randevularListesi.add(canceledRandevu-1,null);
+                                System.out.println("RANDEVU BASARIYLA SILINDI");
+                            }
+                            else if (secim4==4)
+                            {
                                 System.out.println("cikis yapiliyor");
                                 break;
-
                             }
                             else
                             {
                                 System.out.println("HATALI ISLEM YAPTINIZ");
                             }
                         }
-
                     }
                     else
                     {
