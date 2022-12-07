@@ -37,7 +37,8 @@ public class LoginPage extends JFrame
                 if (userManager.userAuth(tcNo, password, repositoryBase) != null)
                 {
                     User authUser = userManager.userAuth(tcNo, password, repositoryBase);
-                    new UserCancelScreen(repositoryBase,authUser);
+                    UserScreen userScreen = new UserScreen(repositoryBase,authUser);
+                    userScreen.setVisible(true);
 
                 };
 

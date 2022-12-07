@@ -17,6 +17,7 @@ public class SignUpPage extends JFrame
     private JPanel sifreLabel;
     private JLabel isimLabel;
     private JLabel soyisiLabel;
+    private JPanel panel1;
 
     public SignUpPage(RepositoryBase repositoryBase)
     {
@@ -48,5 +49,10 @@ public class SignUpPage extends JFrame
             }
         });
 
+    }
+
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
     }
 }
