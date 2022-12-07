@@ -2,6 +2,7 @@ package Entities.Concrete;
 
 public class Randevu
 {
+    public static int randevuCount = 1;
     public int doctorId;
     public int randevuId;
     public int userId;
@@ -20,6 +21,7 @@ public class Randevu
         this.dateDay=dateDay;
         this.dateTime=dateTime;
         this.selected = false;
+        randevuCount+=1;
     }
     public Randevu(int userId,int randevuId,int doctorId,String doctorName,String doctorSkill,String dateDay,String dateTime,boolean selected)
     {
@@ -31,6 +33,7 @@ public class Randevu
         this.dateDay=dateDay;
         this.dateTime=dateTime;
         this.selected = selected;
+        randevuCount+=1;
     }
 
 }

@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class UserScreen extends JFrame {
+public class UserRandevuScreen extends JFrame {
     private JTable table;
     private JButton cancelledButton;
     private JButton returnButton;
@@ -20,42 +20,37 @@ public class UserScreen extends JFrame {
     private JPanel buttonPanel;
     private JPanel mainPanel;
     private JTextField inputRandevuNo;
+    private JLabel userName;
+    private JLabel userLastName;
+    private JLabel userRandevuCount;
 
-    public UserScreen(RepositoryBase repositoryBase, User authUser)
+    public UserRandevuScreen(RepositoryBase repositoryBase, User authUser)
     {
         System.out.println("deneme");
         UserService userManager = new UserService();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setSize(900,900);
-
-        this.add(mainPanel);
-        this.add(tablePanel);
-        this.add(tableScrolPane);
-        this.add(inputPanel);
-        this.add(buttonPanel);
+        add(mainPanel);
         ArrayList<Randevu> randevuList = userManager.randevulariGor(repositoryBase,authUser);
-
         DefaultTableModel tableModel = new DefaultTableModel();
         tableModel.addColumn("AD");
         tableModel.addColumn("SOYAD");
-        tableModel.addColumn("TCNO");
         tableModel.addColumn("TCNO");
         tableModel.addColumn("RANDEVU NO");
         tableModel.addColumn("DOKTOR ISMI");
         tableModel.addColumn("DOKTOR BRANS");
         tableModel.addColumn("RANDEVU TARIH");
         tableModel.addColumn("RANDEVU SAAT");
-
+        userName.setText(authUser.firstName);
+        userLastName.setText(authUser.lastName);
+        userRandevuCount.setText(String.valueOf(randevuList.size()));
         for (Randevu randevu : randevuList)
         {
-            Object[] rowData = {authUser.firstName,authUser.lastName,authUser.tcNo,randevu.randevuId, randevu.doctorId, randevu.doctorName, randevu.doctorSkill, randevu.dateDay, randevu.dateTime};
+            System.out.println(randevu.randevuId);
+            Object[] rowData = {authUser.firstName,authUser.lastName,authUser.tcNo,randevu.randevuId,randevu.doctorName, randevu.doctorSkill, randevu.dateDay, randevu.dateTime};
             tableModel.addRow(rowData);
         }
-
-
         table.setModel(tableModel);
-
-        tablePanel.add(table);
-
         cancelledButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -68,6 +63,5 @@ public class UserScreen extends JFrame {
 
             }
         });
-        this.setVisible(true);
     }
 }

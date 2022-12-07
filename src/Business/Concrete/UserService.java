@@ -76,4 +76,18 @@ public class UserService implements IUserService {
         
         randevuList.remove(randevuId);
     }
+
+    @Override
+    public String returnUserName(int userId, RepositoryBase repositoryBase)
+    {
+        for (User user : repositoryBase.userListesi)
+        {
+            if (user.userId == userId)
+            {
+                String fullName = user.firstName + " " + user.lastName;
+                return fullName;
+            }
+        };
+        return null;
+    }
 }

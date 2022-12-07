@@ -18,6 +18,7 @@ public class SignUpPage extends JFrame
     private JLabel isimLabel;
     private JLabel soyisiLabel;
     private JPanel panel1;
+    private JButton GERIDONButton;
 
     public SignUpPage(RepositoryBase repositoryBase)
     {
@@ -49,10 +50,15 @@ public class SignUpPage extends JFrame
             }
         });
 
-    }
+        GERIDONButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                setVisible(false);
+                LoginPage loginPage = new LoginPage(repositoryBase);
+                loginPage.setVisible(true);
 
-
-    private void createUIComponents() {
-        // TODO: place custom component creation code here
+            }
+        });
     }
 }

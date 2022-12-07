@@ -19,9 +19,17 @@ public class DoctorService implements IDoctorService {
     }
 
     @Override
-    public ArrayList randevulariGor(ArrayList randevuList)
+    public ArrayList<Randevu> randevulariGor(RepositoryBase repositoryBase,Doctor authDoctor)
     {
-        return randevuList;
+        ArrayList<Randevu> doctorRandevuList = new ArrayList<>();
+        for (int i = 0; i < repositoryBase.userRandevuListesi.size(); i++)
+        {
+            if (repositoryBase.doctorRandevuListesi.get(i).doctorId == authDoctor.doctorId)
+            {
+                doctorRandevuList.add(repositoryBase.doctorRandevuListesi.get(i));
+            }
+        }
+        return doctorRandevuList;
     }
 
     @Override

@@ -1,9 +1,16 @@
+import Business.Concrete.DoctorService;
+import Business.Concrete.UserService;
 import DataAccess.RepositoryBase;
 import Entities.Concrete.Doctor;
+import Entities.Concrete.Randevu;
 import Entities.Concrete.User;
 
 
 import java.util.Scanner;
+
+import static Entities.Concrete.Doctor.doctorCount;
+import static Entities.Concrete.Randevu.randevuCount;
+import static Entities.Concrete.User.userCount;
 
 
 public class Main {
@@ -273,13 +280,19 @@ public class Main {
 */
 
         RepositoryBase repositoryBase = new RepositoryBase();
-        User firstUser = new User(0,"Mustafa","Sencan","1","1");
-        Doctor firstDoctor = new Doctor(0,"Serra","Aydin","Genel Cerrahi","2","2");
+        UserService userService = new UserService();
+        DoctorService doctorService = new DoctorService();
+        User firstUser = new User(userCount,"Mustafa","Sencan","1","1");
+        Doctor firstDoctor = new Doctor(doctorCount,"SerSra","Aydin","Genel Cerrahi","2","2");
+        Randevu randevu = new Randevu(1,randevuCount,1,"Mustafa","Genel","26.06.2001","13.00",false);
+        doctorService.randevuAc(randevu,repositoryBase.randevularListesi);
+        repositoryBase.userRandevuListesi.add(randevu);
         repositoryBase.userListesi.add(firstUser);
         repositoryBase.doctorListesi.add(firstDoctor);
+        repositoryBase.doctorRandevuListesi.add(randevu);
         LoginPage loginPage = new LoginPage(repositoryBase);
         loginPage.setVisible(true);
-       
+
     }
 
 }
