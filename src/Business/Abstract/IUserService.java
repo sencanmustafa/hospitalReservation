@@ -15,4 +15,8 @@ public interface IUserService
     public User userAuth(String tcNo, String password, RepositoryBase repositoryBase);
     public void randevuSil(int randevuId,ArrayList<Randevu> randevuList);
     public String returnUserName(int userId , RepositoryBase repositoryBase);
+    public Randevu returnRandevuUserList(RepositoryBase repositoryBase , int randevuId);
+    public Randevu returnRandevuDoctorList(RepositoryBase repositoryBase , int randevuId);
+
+    public Randevu returnRandevuRandevuList(RepositoryBase repositoryBase , int randevuId);
 }

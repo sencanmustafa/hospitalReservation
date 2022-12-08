@@ -90,4 +90,41 @@ public class UserService implements IUserService {
         };
         return null;
     }
+
+    @Override
+    public Randevu returnRandevuUserList(RepositoryBase repositoryBase, int randevuId)
+    {
+        for (Randevu randevu:repositoryBase.userRandevuListesi)
+        {
+            if (randevu.randevuId == randevuId)
+            {
+                return randevu;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public Randevu returnRandevuDoctorList(RepositoryBase repositoryBase, int randevuId) {
+        for (Randevu randevu:repositoryBase.doctorRandevuListesi)
+        {
+            if (randevu.randevuId == randevuId)
+            {
+                return randevu;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public Randevu returnRandevuRandevuList(RepositoryBase repositoryBase, int randevuId) {
+        for (Randevu randevu:repositoryBase.randevularListesi)
+        {
+            if (randevu.randevuId == randevuId)
+            {
+                return randevu;
+            }
+        }
+        return null;
+    }
 }

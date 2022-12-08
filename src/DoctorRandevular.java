@@ -17,11 +17,11 @@ public class DoctorRandevular extends JFrame
     private JTable table;
     private JPanel inputPanel;
     private JLabel inputRandevuNoLabel;
-    private JTextField inputRandevuNo;
     private JPanel buttonPanel;
     private JButton returnButton;
     private JButton cancelledButton;
     private JPanel mainPanel;
+    private JComboBox<Integer> comboBox;
 
     public DoctorRandevular(RepositoryBase repositoryBase, Doctor authDoctor)
     {
@@ -31,6 +31,10 @@ public class DoctorRandevular extends JFrame
         setSize(1000,1000);
         add(mainPanel);
         ArrayList<Randevu> randevuList = doctorManager.randevulariGor(repositoryBase,authDoctor);
+        for (Randevu randevu : randevuList)
+        {
+            comboBox.addItem(randevu.randevuId);
+        }
         DefaultTableModel tableModel = new DefaultTableModel();
         tableModel.addColumn("RANDEVU NO");
         tableModel.addColumn("HASTA ISIM SOYISIM ");
@@ -55,10 +59,23 @@ public class DoctorRandevular extends JFrame
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                if (inputRandevuNo.getText().length()== 0 || inputRandevuNo.getText().isEmpty())
+                int selectedRandevuId = (Integer) comboBox.getSelectedItem();
+                Randevu selectedRandevuListRandevu = doctorManager.returnRandevuListRandevuByRandevuId(repositoryBase,selectedRandevuId);
+                Randevu selectedDoctorListRandevu = doctorManager.returnDoctorListRandevuByRandevuId(repositoryBase,selectedRandevuId);
+                if (selectedRandevuListRandevu.selected || selectedDoctorListRandevu.selected)
                 {
-                    JOptionPane.showMessageDialog(mainPanel,"LUTFEN RANDEVU IPTAL ALANINA NUMARA GIRINIZ");
+                    JOptionPane.showMessageDialog(mainPanel,"RANDEVU IPTAL EDEMEZSINIZ HASTA RANDEVUSUNU ALMIS");
                 }
+                else
+                {
+                    repositoryBase.randevularListesi.remove(selectedRandevuListRandevu);
+                    repositoryBase.doctorRandevuListesi.remove(selectedDoctorListRandevu);
+                    JOptionPane.showMessageDialog(mainPanel,"RANDEVU IPTAL EDILDI");
+                    setVisible(false);
+                    DoctorScreen doctorScreen = new DoctorScreen(repositoryBase,authDoctor);
+                    doctorScreen.setVisible(true);
+                }
+
             }
         });
 

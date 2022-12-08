@@ -5,6 +5,8 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static Entities.Concrete.User.userCount;
+
 public class SignUpPage extends JFrame
 {
     private JButton registerButton;
@@ -25,7 +27,7 @@ public class SignUpPage extends JFrame
         add(panel2);
         setSize(400,400);
         setTitle("Kayit Ol");
-        final int[] userId = {1};
+
         registerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e)
@@ -34,19 +36,11 @@ public class SignUpPage extends JFrame
                 String soyisim = SOYISIMTextField.getText();
                 String tcNo = TCKIMLIKNOTextField.getText();
                 String password = new String(PASSWORDPasswordField.getPassword());
-                User authUser = new User(userId[0],isim,soyisim,tcNo,password);
+                User authUser = new User(userCount,isim,soyisim,tcNo,password);
                 repositoryBase.userListesi.add(authUser);
-                userId[0] +=1;
-                SignUpPage signUpPage = new SignUpPage(repositoryBase);
-                signUpPage.setVisible(false);
+                setVisible(false);
                 LoginPage loginPage = new LoginPage(repositoryBase);
                 loginPage.setVisible(true);
-                for (User user : repositoryBase.userListesi)
-                {
-                    System.out.println(user.firstName);
-                }
-
-
             }
         });
 

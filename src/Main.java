@@ -286,7 +286,7 @@ public class Main {
         Doctor firstDoctor = new Doctor(doctorCount,"SerSra","Aydin","Genel Cerrahi","2","2");
         Randevu randevu = new Randevu(1,randevuCount,1,"Mustafa","Genel","26.06.2001","13.00",false);
         doctorService.randevuAc(randevu,repositoryBase.randevularListesi);
-        repositoryBase.userRandevuListesi.add(randevu);
+        //repositoryBase.userRandevuListesi.add(randevu);
         repositoryBase.userListesi.add(firstUser);
         repositoryBase.doctorListesi.add(firstDoctor);
         repositoryBase.doctorRandevuListesi.add(randevu);

@@ -24,7 +24,11 @@ public class DoctorService implements IDoctorService {
         ArrayList<Randevu> doctorRandevuList = new ArrayList<>();
         for (int i = 0; i < repositoryBase.doctorRandevuListesi.size(); i++)
         {
-            if (repositoryBase.doctorRandevuListesi.get(i).doctorId == authDoctor.doctorId)
+            if (repositoryBase.doctorRandevuListesi.get(i) == null)
+            {
+                continue;
+            }
+            if(repositoryBase.doctorRandevuListesi.get(i).doctorId == authDoctor.doctorId)
             {
                 doctorRandevuList.add(repositoryBase.doctorRandevuListesi.get(i));
             }
@@ -50,8 +54,29 @@ public class DoctorService implements IDoctorService {
     }
 
     @Override
-    public void randevuSil(int randevuId, ArrayList randevuList)
-    {
-        randevuList.remove(randevuId);
+    public Randevu returnRandevuListRandevuByRandevuId(RepositoryBase repositoryBase, int randevuId) {
+        for (Randevu randevu:repositoryBase.randevularListesi)
+        {
+            if (randevu.randevuId == randevuId)
+            {
+                return randevu;
+            }
+        }
+        return null;
     }
+
+    @Override
+    public Randevu returnDoctorListRandevuByRandevuId(RepositoryBase repositoryBase, int randevuId)
+    {
+        for (Randevu randevu:repositoryBase.doctorRandevuListesi)
+        {
+            if (randevu.randevuId == randevuId)
+            {
+                return randevu;
+            }
+        }
+        return null;
+    }
+
+
 }

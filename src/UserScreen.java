@@ -19,11 +19,11 @@ public class UserScreen extends JFrame {
     private JPanel inputPanel;
     private JPanel buttonPanel;
     private JPanel mainPanel;
-    private JTextField inputRandevuNo;
     private JLabel userName;
     private JLabel userLastName;
     private JLabel userRandevuCount;
     private JButton RANDEVUALButton;
+    private JComboBox<Integer> comboBox1;
 
     public UserScreen(RepositoryBase repositoryBase, User authUser)
     {
@@ -33,6 +33,10 @@ public class UserScreen extends JFrame {
         this.setSize(900,900);
         add(mainPanel);
         ArrayList<Randevu> randevuList = userManager.randevulariGor(repositoryBase,authUser);
+        for (Randevu randevu : randevuList)
+        {
+            comboBox1.addItem(randevu.randevuId);
+        }
         DefaultTableModel tableModel = new DefaultTableModel();
         tableModel.addColumn("AD");
         tableModel.addColumn("SOYAD");
@@ -44,7 +48,7 @@ public class UserScreen extends JFrame {
         tableModel.addColumn("RANDEVU SAAT");
         userName.setText(authUser.firstName);
         userLastName.setText(authUser.lastName);
-        userRandevuCount.setText(String.valueOf(randevuList.size()));
+        userRandevuCount.setText("MEVCUT RANDEVU SAYISI -> " + " " + randevuList.size());
         for (Randevu randevu : randevuList)
         {
             System.out.println(randevu.randevuId);
@@ -54,7 +58,21 @@ public class UserScreen extends JFrame {
         table.setModel(tableModel);
         cancelledButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e)
+            {
+                int randevuId = (Integer) comboBox1.getSelectedItem();
+                Randevu selectedRandevuUserList = userManager.returnRandevuUserList(repositoryBase,randevuId);
+                repositoryBase.userRandevuListesi.remove(selectedRandevuUserList);
+                Randevu randevuRandevuList = userManager.returnRandevuRandevuList(repositoryBase,randevuId);
+                Randevu randevuDoctorList = userManager.returnRandevuDoctorList(repositoryBase,randevuId);
+                randevuDoctorList.userId = 0;
+                randevuDoctorList.selected = false;
+                randevuRandevuList.selected = false;
+                randevuRandevuList.userId = 0;
+                JOptionPane.showMessageDialog(mainPanel,"RANDEVU SILINDI");
+                setVisible(false);
+                UserScreen userScreen = new UserScreen(repositoryBase,authUser);
+                userScreen.setVisible(true);
 
             }
         });
@@ -71,6 +89,15 @@ public class UserScreen extends JFrame {
                 setVisible(false);
                 UserRandevuScreen userRandevuScreen = new UserRandevuScreen(repositoryBase,authUser);
                 userRandevuScreen.setVisible(true);
+            }
+        });
+        returnButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                setVisible(false);
+                LoginPage loginPage = new LoginPage(repositoryBase);
+                loginPage.setVisible(true);
             }
         });
     }

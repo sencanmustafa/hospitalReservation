@@ -57,6 +57,7 @@ public class DoctorRandevuAc extends JFrame {
                 Randevu randevu = new Randevu(randevuCount,authDoctor.doctorId,authDoctor.firstName+" " + authDoctor.lastName,authDoctor.doctorSkill,valueRandevuDate,valueRandevuTime);
                 repositoryBase.doctorRandevuListesi.add(randevu);
                 repositoryBase.randevularListesi.add(randevu);
+                repositoryBase.randevuSaatleri.add(randevu.dateTime);
                 setVisible(false);
                 DoctorScreen doctorScreen = new DoctorScreen(repositoryBase,authDoctor);
                 doctorScreen.setVisible(true);

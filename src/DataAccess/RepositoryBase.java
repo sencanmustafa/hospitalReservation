@@ -18,6 +18,7 @@ public class RepositoryBase
     public ArrayList<Doctor> doctorListesi;
     public ArrayList<User> userListesi;
     public ArrayList<Admin> adminListesi;
+    public ArrayList<String> randevuSaatleri;
 
     public RepositoryBase()
     {
@@ -27,6 +28,28 @@ public class RepositoryBase
         this.doctorListesi= new ArrayList<>();
         this.doctorRandevuListesi= new ArrayList<>();
         this.userRandevuListesi= new ArrayList<>();
+        this.randevuSaatleri = new ArrayList<>();
 
+    }
+
+    public ArrayList<Randevu> returnNonSelectedRandevu()
+    {
+        ArrayList<Randevu> nonSelectedRandevu = new ArrayList<>();
+        for (Randevu randevu : this.randevularListesi)
+        {
+            if (!randevu.selected)
+            {
+                nonSelectedRandevu.add(randevu);
+            }
+
+        }
+        if (nonSelectedRandevu.size() == 0)
+        {
+            return null;
+        }
+        else
+        {
+            return nonSelectedRandevu;
+        }
     }
 }
