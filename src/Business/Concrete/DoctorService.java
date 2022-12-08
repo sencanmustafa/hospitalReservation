@@ -22,7 +22,7 @@ public class DoctorService implements IDoctorService {
     public ArrayList<Randevu> randevulariGor(RepositoryBase repositoryBase,Doctor authDoctor)
     {
         ArrayList<Randevu> doctorRandevuList = new ArrayList<>();
-        for (int i = 0; i < repositoryBase.userRandevuListesi.size(); i++)
+        for (int i = 0; i < repositoryBase.doctorRandevuListesi.size(); i++)
         {
             if (repositoryBase.doctorRandevuListesi.get(i).doctorId == authDoctor.doctorId)
             {

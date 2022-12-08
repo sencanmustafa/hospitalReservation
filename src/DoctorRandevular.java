@@ -41,10 +41,14 @@ public class DoctorRandevular extends JFrame
             System.out.println(randevu.randevuId);
             if (userService.returnUserName(randevu.userId,repositoryBase) == null)
             {
-                continue;
+                Object[] rowData = {randevu.randevuId,"Randevu Bos", randevu.dateDay, randevu.dateTime};
+                tableModel.addRow(rowData);
             }
-            Object[] rowData = {randevu.randevuId,userService.returnUserName(randevu.userId,repositoryBase), randevu.dateDay, randevu.dateTime};
-            tableModel.addRow(rowData);
+            else
+            {
+                Object[] rowData = {randevu.randevuId,userService.returnUserName(randevu.userId,repositoryBase), randevu.dateDay, randevu.dateTime};
+                tableModel.addRow(rowData);
+            }
         }
         table.setModel(tableModel);
         cancelledButton.addActionListener(new ActionListener() {

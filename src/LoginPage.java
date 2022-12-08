@@ -42,8 +42,8 @@ public class LoginPage extends JFrame
                 {
                     setVisible(false);
                     User authUser = userManager.userAuth(tcNo, password, repositoryBase);
-                    UserRandevuScreen userRandevuScreen = new UserRandevuScreen(repositoryBase,authUser);
-                    userRandevuScreen.setVisible(true);
+                    UserScreen userScreen = new UserScreen(repositoryBase,authUser);
+                    userScreen.setVisible(true);
 
                 }
                 else
