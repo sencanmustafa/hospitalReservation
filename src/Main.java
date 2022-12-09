@@ -290,6 +290,7 @@ public class Main {
         repositoryBase.userListesi.add(firstUser);
         repositoryBase.doctorListesi.add(firstDoctor);
         repositoryBase.doctorRandevuListesi.add(randevu);
+        repositoryBase.randevuGunSaatleri.add(randevu.dateTime+randevu.dateDay+firstDoctor.doctorId);
         LoginPage loginPage = new LoginPage(repositoryBase);
         loginPage.setVisible(true);
 

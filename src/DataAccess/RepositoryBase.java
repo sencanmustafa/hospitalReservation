@@ -18,7 +18,7 @@ public class RepositoryBase
     public ArrayList<Doctor> doctorListesi;
     public ArrayList<User> userListesi;
     public ArrayList<Admin> adminListesi;
-    public ArrayList<String> randevuSaatleri;
+    public ArrayList<String> randevuGunSaatleri;
 
     public RepositoryBase()
     {
@@ -28,7 +28,7 @@ public class RepositoryBase
         this.doctorListesi= new ArrayList<>();
         this.doctorRandevuListesi= new ArrayList<>();
         this.userRandevuListesi= new ArrayList<>();
-        this.randevuSaatleri = new ArrayList<>();
+        this.randevuGunSaatleri = new ArrayList<>();
 
     }
 

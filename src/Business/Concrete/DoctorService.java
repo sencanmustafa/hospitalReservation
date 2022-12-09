@@ -66,6 +66,20 @@ public class DoctorService implements IDoctorService {
     }
 
     @Override
+    public boolean compareRandevuDate(RepositoryBase repositoryBase, String randevuDateTime)
+    {
+        for (Randevu randevu : repositoryBase.randevularListesi)
+        {
+            String randevuDate = randevu.dateTime+randevu.dateDay;
+            if (randevuDate.equals(randevuDateTime))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
     public Randevu returnDoctorListRandevuByRandevuId(RepositoryBase repositoryBase, int randevuId)
     {
         for (Randevu randevu:repositoryBase.doctorRandevuListesi)

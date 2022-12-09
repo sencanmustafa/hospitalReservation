@@ -3,7 +3,6 @@ package Business.Abstract;
 import DataAccess.RepositoryBase;
 import Entities.Concrete.Doctor;
 import Entities.Concrete.Randevu;
-import Entities.Concrete.User;
 
 import java.util.ArrayList;
 
@@ -14,4 +13,5 @@ public interface IDoctorService<T>
     public Doctor doctorAuth(String tcNo, String password, RepositoryBase repositoryBase);
     public Randevu returnDoctorListRandevuByRandevuId(RepositoryBase repositoryBase , int randevuId);
     public Randevu returnRandevuListRandevuByRandevuId(RepositoryBase repositoryBase , int randevuId);
+    public boolean compareRandevuDate(RepositoryBase repositoryBase , String randevuDateTime);
 }

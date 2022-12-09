@@ -54,13 +54,22 @@ public class DoctorRandevuAc extends JFrame {
                 //}
                 String valueRandevuDate = randevuDate.getText();
                 String valueRandevuTime = randevuSaatInput.getText();
-                Randevu randevu = new Randevu(randevuCount,authDoctor.doctorId,authDoctor.firstName+" " + authDoctor.lastName,authDoctor.doctorSkill,valueRandevuDate,valueRandevuTime);
-                repositoryBase.doctorRandevuListesi.add(randevu);
-                repositoryBase.randevularListesi.add(randevu);
-                repositoryBase.randevuSaatleri.add(randevu.dateTime);
-                setVisible(false);
-                DoctorScreen doctorScreen = new DoctorScreen(repositoryBase,authDoctor);
-                doctorScreen.setVisible(true);
+                String sumDateTime = valueRandevuDate+valueRandevuTime+authDoctor.doctorId;
+                if (doctorManager.compareRandevuDate(repositoryBase, sumDateTime))
+                {
+                    Randevu randevu = new Randevu(randevuCount,authDoctor.doctorId,authDoctor.firstName+" " + authDoctor.lastName,authDoctor.doctorSkill,valueRandevuDate,valueRandevuTime);
+                    repositoryBase.doctorRandevuListesi.add(randevu);
+                    repositoryBase.randevularListesi.add(randevu);
+                    repositoryBase.randevuGunSaatleri.add(randevu.dateTime+randevu.dateDay+authDoctor.doctorId);
+                    setVisible(false);
+                    DoctorScreen doctorScreen = new DoctorScreen(repositoryBase,authDoctor);
+                    doctorScreen.setVisible(true);
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(mainPanel,"BU TARIHTE VE SAATTE BOYLE BIR RANDEVU VAR");
+                }
+
             }
         });
         GERIDONButton.addActionListener(new ActionListener() {
