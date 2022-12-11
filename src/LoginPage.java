@@ -18,6 +18,8 @@ public class LoginPage extends JFrame
     private JButton doktorLoginButton;
     private JLabel usernamelabel;
     private JLabel passwordLabel;
+    private JLabel imageLabelLabel;
+    private JPanel panel4;
 
     public LoginPage(RepositoryBase repositoryBase)
     {
@@ -29,7 +31,7 @@ public class LoginPage extends JFrame
             System.out.println("Login Page");
             System.out.println(user.firstName);
         }
-        usernamelabel.setText("USERNAME : ");
+        usernamelabel.setText("TC NO : ");
         passwordLabel.setText("PASSWORD : ");
         girisYapButton.addActionListener(new ActionListener()
         {
@@ -75,4 +77,8 @@ public class LoginPage extends JFrame
         });
     }
 
+    private void createUIComponents()
+    {
+        imageLabelLabel = new JLabel(new ImageIcon("hospital.jpeg"));
+    }
 }

@@ -283,7 +283,7 @@ public class Main {
         UserService userService = new UserService();
         DoctorService doctorService = new DoctorService();
         User firstUser = new User(userCount,"Mustafa","Sencan","1","1");
-        Doctor firstDoctor = new Doctor(doctorCount,"SerSra","Aydin","Genel Cerrahi","2","2");
+        Doctor firstDoctor = new Doctor(doctorCount,"Abdullah","Sirma","Genel Cerrahi","2","2");
         Randevu randevu = new Randevu(1,randevuCount,1,"Mustafa","Genel","26.06.2001","13.00",false);
         doctorService.randevuAc(randevu,repositoryBase.randevularListesi);
         //repositoryBase.userRandevuListesi.add(randevu);
